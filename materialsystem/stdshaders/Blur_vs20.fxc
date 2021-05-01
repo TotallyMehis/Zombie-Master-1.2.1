@@ -1,0 +1,44 @@
+#include "common_vs_fxc.h"
+
+struct VS_INPUT
+{
+	float3 vPos						: POSITION;
+	float2 vBaseTexCoord			: TEXCOORD0;
+};
+
+struct VS_OUTPUT
+{
+        float4 vProjPos				: POSITION;
+	float2 vBaseTexCoord0			: TEXCOORD0;
+	float2 vBaseTexCoord1			: TEXCOORD1;
+	float2 vBaseTexCoord2			: TEXCOORD2;
+	float2 vBaseTexCoord3			: TEXCOORD3;
+	float2 vBaseTexCoord4			: TEXCOORD4;
+	float2 vBaseTexCoord5			: TEXCOORD5;
+	float2 vBaseTexCoord6			: TEXCOORD6;
+
+
+};
+
+float2 vsTapOffs[3] : register ( c90 );
+
+VS_OUTPUT main( const VS_INPUT v )
+{
+	VS_OUTPUT o = ( VS_OUTPUT )0;
+
+	o.vBaseTexCoord0 = v.vBaseTexCoord;
+	o.vBaseTexCoord1 = v.vBaseTexCoord + vsTapOffs[0];
+	o.vBaseTexCoord2 = v.vBaseTexCoord + vsTapOffs[1];
+	o.vBaseTexCoord3 = v.vBaseTexCoord + vsTapOffs[2];
+	o.vBaseTexCoord4 = v.vBaseTexCoord - vsTapOffs[0];
+	o.vBaseTexCoord5 = v.vBaseTexCoord - vsTapOffs[1];
+	o.vBaseTexCoord6 = v.vBaseTexCoord - vsTapOffs[2];
+
+
+	o.vProjPos = float4( v.vPos, 1.0f );
+
+
+	return o;
+}
+
+

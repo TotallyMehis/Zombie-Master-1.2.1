@@ -1,0 +1,2 @@
+fxc.exe /DSHADERCOMBO=0 /DTOTALSHADERCOMBOS=1 /DCENTROIDMASK=0 /DNUMDYNAMICCOMBOS=1 /DFLAGS=0x0 /Dmain=main /Emain /Tps_1_4 /DSHADER_MODEL_PS_1_4=1 /nologo /Foshader.o NightVision_ps14.fxc>output.txt 2>&1
+fxc.exe /DSHADERCOMBO=0 /DTOTALSHADERCOMBOS=1 /DCENTROIDMASK=0 /DNUMDYNAMICCOMBOS=1 /DFLAGS=0x0 /Dmain=main /Emain /Tvs_1_1 /DSHADER_MODEL_VS_1_1=1 /nologo /Foshader.o NightVision_vs11.fxc>output.txt 2>&1

@@ -1,0 +1,51 @@
+#include "common_ps_fxc.h"
+
+//*****************************************************************************
+// Night Vision Shader
+//*****************************************************************************
+//-----------------------------------------------------------------------------
+// Structures                                                                  
+//-----------------------------------------------------------------------------
+struct ConnectData
+{
+   float2 tex0            : TEXCOORD0;
+
+};
+
+
+struct Fragout
+{
+   half4 col : COLOR0;
+};
+
+
+//-----------------------------------------------------------------------------
+// Main                                                                        
+//-----------------------------------------------------------------------------
+Fragout main( ConnectData IN,
+              uniform sampler2D diffuseMap0  : register(S0)
+
+)
+{
+   Fragout OUT;
+
+
+   float4 texelColor =  tex2D( diffuseMap0, IN.tex0 );
+
+   float3 grayScaleWeights;
+
+   grayScaleWeights.x = 2;
+   grayScaleWeights.y = 2;
+   grayScaleWeights.z = 2;
+
+   float4 scaledColor = texelColor * float4( grayScaleWeights, 1.0 );
+   float luminance = scaledColor.r + scaledColor.g + scaledColor.b ;
+
+
+   float4 bnw = float4( luminance*0.5, luminance, luminance*0.5, texelColor.a );
+
+   OUT.col = bnw;
+
+
+   return OUT;
+}

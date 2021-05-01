@@ -1,0 +1,4 @@
+..\..\materialsystem\stdshaders\common_fxc.h
+..\..\materialsystem\stdshaders\common_hlsl_cpp_consts.h
+..\..\materialsystem\stdshaders\common_vs_fxc.h
+nightvision_vs11.fxc

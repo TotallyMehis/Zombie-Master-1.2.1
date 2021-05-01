@@ -1,0 +1,49 @@
+#include "common_ps_fxc.h"
+
+sampler BaseTextureSampler	: register( s0 );
+
+
+struct PS_INPUT
+{
+	HALF2 vBaseTexCoord0 : TEXCOORD0;
+	HALF2 vBaseTexCoord1 : TEXCOORD1;
+	HALF2 vBaseTexCoord2 : TEXCOORD2;
+	HALF2 vBaseTexCoord3 : TEXCOORD3;
+	HALF2 vBaseTexCoord4 : TEXCOORD4;
+	HALF2 vBaseTexCoord5 : TEXCOORD5;
+	HALF2 vBaseTexCoord6 : TEXCOORD6;
+
+};
+
+static const float blurWeights[7] =
+{
+0.14,
+0.16,
+0.18,
+0.20,
+0.18,
+0.16,
+0.14,
+};
+
+
+HALF4 main( PS_INPUT i ) : COLOR
+{
+	HALF4 mainColor  = tex2D( BaseTextureSampler, i.vBaseTexCoord1 ) * blurWeights[0];
+
+	HALF4 blurColor1 = tex2D( BaseTextureSampler, i.vBaseTexCoord1 ) * blurWeights[1];
+	HALF4 blurColor2 = tex2D( BaseTextureSampler, i.vBaseTexCoord2 ) * blurWeights[2];
+	HALF4 blurColor3 = tex2D( BaseTextureSampler, i.vBaseTexCoord3 ) * blurWeights[3];
+	HALF4 blurColor4 = tex2D( BaseTextureSampler, i.vBaseTexCoord4 ) * blurWeights[4];
+	HALF4 blurColor5 = tex2D( BaseTextureSampler, i.vBaseTexCoord5 ) * blurWeights[5];
+	HALF4 blurColor6 = tex2D( BaseTextureSampler, i.vBaseTexCoord6 ) * blurWeights[6];
+        
+        HALF4 blurred = blurColor1 + blurColor2 + blurColor3 + blurColor4 + blurColor5 + blurColor6;
+	HALF4 final = mainColor + blurred;
+
+
+
+	return final;
+}
+
+

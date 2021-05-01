@@ -1,0 +1,16 @@
+default:  fxctmp9\nightVision_vs11.inc shaders\fxc\nightVision_vs11.vcs fxctmp9\nightVision_ps14.inc shaders\fxc\nightVision_ps14.vcs
+
+clean:
+	del /f /q fxctmp9\nightVision_vs11.inc
+	del /f /q "shaders\fxc\nightVision_vs11.vcs"
+	del /f /q fxctmp9\nightVision_ps14.inc
+	del /f /q "shaders\fxc\nightVision_ps14.vcs"
+
+fxctmp9\nightVision_vs11.inc shaders\fxc\nightVision_vs11.vcs: ..\..\devtools\bin\updateshaders.pl ..\..\devtools\bin\fxc_prep.pl nightVision_vs11.fxc 
+	perl ..\devtools\bin\fxc_prep.pl  -shaderoutputdir shaders -source ".." nightVision_vs11.fxc
+	echo nightVision_vs11.fxc>> filestocopy.txt
+
+fxctmp9\nightVision_ps14.inc shaders\fxc\nightVision_ps14.vcs: ..\..\devtools\bin\updateshaders.pl ..\..\devtools\bin\fxc_prep.pl nightVision_ps14.fxc 
+	perl ..\devtools\bin\fxc_prep.pl  -shaderoutputdir shaders -source ".." nightVision_ps14.fxc
+	echo nightVision_ps14.fxc>> filestocopy.txt
+

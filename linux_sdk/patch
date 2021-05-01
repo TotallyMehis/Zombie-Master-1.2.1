@@ -1,0 +1,26 @@
+--- Makefile.vcpm       Sat Oct  1 22:26:26 2005
++++ Makefile.vcpm       Sat Oct  1 22:25:43 2005
+@@ -14,12 +14,12 @@
+ TIER1_OBJ_DIR=$(BUILD_OBJ_DIR)/vcpm/public
+
+ #we use custome CFLAGS because the base ones interfere with XERCES
+-CFLAGS= -w -fpermissive -D_LINUX -DNDEBUG -D_alloca=alloca -D_snprintf=snprintf -D_vsnprintf=vsnprintf $(ARCH_CFLAGS)
++CFLAGS= -w -fpermissive -D_LINUX -DNDEBUG $(ARCH_CFLAGS)
+ #DEBUG = -g -ggdb
+ #CFLAGS+= $(DEBUG)
+
+ INCLUDEDIRS=-I$(PUBLIC_SRC_DIR) -I$(XERCES_INC_DIR) -I$(UTIL_COMMON_SRC_DIR) -I$(TIER1_PUBLIC_SRC_DIR)
+-LDFLAGS_VC=-lm -ldl -L$(XERCES_LIB_DIR) -lxerces-c $(GAME_DIR)/bin/tier0_i486.so $(GAME_DIR)/bin/vstdlib_i486.so
++LDFLAGS_VC=-lm -ldl -Wl,-rpath -Wl,$(GAME_DIR)/bin -L$(XERCES_LIB_DIR) -lxerces-c $(GAME_DIR)/bin/tier0_i486.so $(GAME_DIR)/bin/vstdlib_i486.so
+
+ DO_CC=$(CPLUS) $(INCLUDEDIRS) -w $(CFLAGS) -DARCH=$(ARCH) -o $@ -c $<
+
+@@ -51,7 +51,7 @@
+        $(DO_CC)
+
+ $(TIER1_OBJ_DIR)/%.o: $(TIER1_SRC_DIR)/%.cpp
+-       $(DO_CC) -Dstricmp=strcasecmp -Dstrcmpi=strcasecmp
++       $(DO_CC)
+
+ clean:
+        -rm -rf $(VCPM_OBJ_DIR)

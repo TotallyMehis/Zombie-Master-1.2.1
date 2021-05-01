@@ -1,0 +1,6 @@
+nightvision_ps20.fxc
+nightvision_vs11.fxc
+blur_ps20.fxc
+blur_vs20.fxc
+finalblend_ps20.fxc
+finalblend_vs20.fxc
